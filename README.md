@@ -1,5 +1,3 @@
----
-
 # ~/.vim/cafe.rc
 
 > *"Um refúgio administrativo com som de chuva, teclas mecânicas e cheiro de café recém-passado."*
