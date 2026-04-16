@@ -8,7 +8,7 @@
 
 ## Sobre o Projeto
 
-O **~/.vim/cafe.rc** nasceu de uma necessidade simples: ter um espaço digital que não gritasse urgência. Vivemos em painéis administrativos frios, estéreis e estressantes. Este projeto propõe o oposto. 
+O **~/.vim/cafe.rc** (ou *relax.rc*) nasceu de uma necessidade simples: ter um espaço digital que não gritasse urgência. Vivemos em painéis administrativos frios, estéreis e estressantes. Este projeto propõe o oposto. 
 
 Atualmente, ele funciona como um ambiente de foco e relaxamento (um *ASMR board* interativo com notas autoadesivas). No entanto, **a visão de longo prazo é evoluir esta interface para uma Central Administrativa completa e conectada**. 
 
@@ -28,26 +28,27 @@ A paleta de cores foi rigorosamente escolhida para não cansar os olhos. O tema 
 
 ## Funcionalidades Atuais
 
-*   **Motor de Áudio Dinâmico (Tone.js & Vanilla Web Audio):** Sons gerados proceduralmente. Cliques de interface, *pops*, *swooshes* e o som tátil e aveludado de switches mecânicos (*thock*).
-*   **Gerador de Ruído Branco:** *Toggles* nativos para ligar som de chuva e estética de fita cassete (Lo-fi), gerados via síntese de áudio (sem arquivos pesados de mp3).
-*   **Smart Notes em Tons Pastéis:** Crie notas autoadesivas pela tela. O sistema detecta as cores já usadas e sempre tenta gerar uma nova nota com uma cor inédita da paleta. Arraste, solte, mude a cor e escreva.
-*   **Persistência Local:** Fechou a aba? Suas notas, posições, textos e cores estarão exatamente onde você as deixou (via `localStorage`).
-*   **Modo Foco:** Escurece levemente a tela, esconde distrações (notas e botões) e centraliza sua atenção apenas no que importa.
+*   🎧 **Motor de Áudio Híbrido (Tone.js + Web Audio API):** Uma mistura de áudio gerado proceduralmente (cliques de interface, *pops*, *swooshes* e *thocks* de teclado mecânico) com imersão realista.
+*   🌧️ **Sons da Natureza e Ambientação:** *Toggles* nativos para ligar som de Chuva e de Rio (utilizando áudios reais `.ogg` de alta qualidade), além de um filtro *Lo-Fi* estilo fita cassete gerado via ruído rosa sintético.
+*   ⌨️ **Mapeamento Real de Teclado (Vim-style):** Digitar `h`, `j`, `k`, `l`, `w`, `b` e `[Space]` fora das caixas de texto aciona visualmente e sonoramente os botões na tela, gerando notas musicais.
+*   📝 **Smart Notes Personalizáveis:** Crie notas autoadesivas pela tela. O sistema detecta as cores já usadas da paleta pastel, mas agora você também pode escolher **qualquer cor customizada** usando o *Color Picker* embutido no rodapé de cada nota.
+*   💾 **Persistência Local (Auto-Save):** Fechou a aba? Suas notas, posições (`x/y`), textos e cores customizadas estarão exatamente onde você as deixou graças ao `localStorage`.
+*   🧘 **Modo Foco:** Escurece levemente a tela, esconde distrações (notas e botões flutuantes) e centraliza sua atenção apenas no terminal e nos controles ambientais.
 
 ## O Futuro: A Central Administrativa Pessoal
 
 O ambiente relaxante de hoje é a fundação para o *dashboard* de amanhã. O roteiro de atualizações transformará o **cafe.rc** no seu principal hub de produtividade:
 
-- [ ] **Sincronização em Nuvem (Firebase):** Sistema de login e autenticação seguro. Suas notas e configurações não ficarão mais presas ao navegador, sendo salvas em tempo real para você acessar de qualquer dispositivo.
-- [ ] **Agenda Zen (Integração Google Calendar):** Visualize seus compromissos e planeje seu dia sem sair do seu refúgio. O tempo não precisa ser um inimigo.
-- [ ] **Caixa de Entrada Calma (Integração Gmail):** Conexão com sua conta de email para ler e gerenciar mensagens essenciais em uma interface minimalista, com tipografia limpa e livre da ansiedade das caixas de entrada modernas.
-- [ ] **Card de Clima e Atmosfera:** Um *widget* dedicado mostrando o clima real da sua cidade com a estética do terminal, harmonizando com a chuva virtual do painel.
-- [ ] **Módulo Pomodoro:** Um *timer* integrado de forma discreta na *mode-line* do Vim, intercalando momentos de foco profundo com pausas para "um novo café".
+- [ ] **Sincronização em Nuvem (Firebase):** Sistema de login e autenticação seguro. Suas notas e configurações não ficarão mais presas ao navegador.
+- [ ] **Agenda Zen (Integração Google Calendar):** Visualize seus compromissos e planeje seu dia sem sair do seu refúgio.
+- [ ] **Caixa de Entrada Calma (Integração Gmail):** Conexão com sua conta de email para ler mensagens essenciais em uma interface minimalista.
+- [ ] **Card de Clima Atmosférico:** Um *widget* mostrando o clima real da sua cidade com a estética do terminal.
+- [ ] **Módulo Pomodoro:** Um *timer* integrado de forma discreta na *mode-line* do Vim, intercalando momentos de foco com pausas para o café.
 - [ ] **Comandos Reais no Terminal:** Fazer o log inferior ganhar vida aceitando *inputs* reais (`:clear`, `:focus`, `:new-note`, `:login`).
 
 ## Como usar
 
-Como o projeto é construído 100% em **Vanilla HTML/CSS/JS** (com Tone.js importado via CDN), não há necessidade de *build*, Node.js ou bundlers para testar a versão atual.
+Como o projeto é construído 100% em **Vanilla HTML/CSS/JS** (com *Tone.js* importado via CDN), não há necessidade de *build*, Node.js ou bundlers.
 
 1. Clone o repositório:
    ```bash
@@ -55,11 +56,12 @@ Como o projeto é construído 100% em **Vanilla HTML/CSS/JS** (com Tone.js impor
    ```
 2. Abra a pasta do projeto.
 3. Dê um duplo clique no arquivo `index.html` para abrir no seu navegador.
-4. *Coloque os fones de ouvido, clique na tela para compilar os grãos, e relaxe.*
+4. *Ligue os fones, clique na tela para compilar os grãos, e relaxe.*
 
 ---
 
 <p align="center">
   <i>"Puxe uma cadeira, escute a chuva e digite com calma."</i><br>
-
 </p>
+
+---
