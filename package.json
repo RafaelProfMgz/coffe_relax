@@ -1,0 +1,21 @@
+{
+  "name": "coffe-to-relax",
+  "version": "2.0.0-next",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.12",
+    "typescript": "^5.5.4"
+  }
+}
