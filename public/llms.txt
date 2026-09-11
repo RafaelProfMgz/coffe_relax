@@ -1,0 +1,35 @@
+# coffe to relax
+
+> Uma cafeteria digital para focar com calma. Ambiente de foco que roda inteiramente no navegador:
+> sons relaxantes sintetizados ao vivo com a Web Audio API, player de playlist do YouTube salva no
+> localStorage, timer pomodoro, mural de notas e card de clima. Sem contas, sem anúncios, sem rastreamento.
+
+O projeto é open source, escrito em Next.js 14 (App Router) com TypeScript. Todo o conteúdo do usuário
+(playlist, notas, preferências) fica no armazenamento local do próprio navegador — não existe banco de
+dados nem servidor guardando dados pessoais. O uso do localStorage e da geolocalização depende de
+consentimento explícito, pedido na primeira visita e revogável a qualquer momento pelo rodapé.
+
+## Recursos principais
+
+- [Mesa de Ambiente](https://coffe-relax.vercel.app/): dez camadas de som sintetizadas ao vivo — chuva, trovão, mar, floresta, lareira, cafeteria, vento, grilos, tigela tibetana e vinil lo-fi. Todas podem tocar simultaneamente, cada uma com volume próprio, e não há download nem streaming de áudio.
+- [Playlist do YouTube](https://coffe-relax.vercel.app/): o usuário cola um link, o título é buscado pelo endpoint oEmbed público, e link mais título ficam salvos no navegador. Player com play/pause, avançar, voltar, escolher faixa, barra de progresso, aleatório, repetição e modo só-áudio, servido pelo domínio youtube-nocookie.com.
+- [Sons de interface](https://coffe-relax.vercel.app/): cliques sintetizados que percorrem uma escala pentatônica, de modo que interações rápidas soam como melodia em vez de ruído repetido.
+- [Pomodoro, mural de notas e clima](https://coffe-relax.vercel.app/): timer de foco com anel de progresso, notas autoadesivas arrastáveis e previsão do tempo via Open-Meteo.
+
+## Documentos
+
+- [Política de Privacidade](https://coffe-relax.vercel.app/privacidade): o que é guardado no navegador, quais serviços de terceiros são acionados e como exercer direitos da LGPD e do GDPR.
+- [Termos de Serviço](https://coffe-relax.vercel.app/termos): escopo do serviço, conteúdo de terceiros, uso aceitável e limitação de responsabilidade.
+- [Código-fonte](https://github.com/RafaelProfMgz/coffe_relax): repositório público do projeto.
+
+## Bibliotecas públicas recomendadas pelo site
+
+- [Freesound](https://freesound.org/): maior biblioteca colaborativa de sons; muitas faixas em CC0, outras exigem atribuição.
+- [Pixabay Sound Effects](https://pixabay.com/sound-effects/): efeitos sonoros gratuitos para uso comercial, sem necessidade de créditos.
+- [Musopen](https://musopen.org/): música clássica em domínio público, incluindo gravações de orquestra.
+
+## Observações para agentes
+
+- O site é totalmente client-side; não há API pública nem endpoints de dados para consultar.
+- Não há conteúdo pago, muro de login ou área restrita.
+- O idioma principal é português do Brasil.
