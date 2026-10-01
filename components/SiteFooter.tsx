@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useConsent } from "@/hooks/useConsent";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_PAGES } from "@/lib/site";
 
 export default function SiteFooter() {
   const { openPanel } = useConsent();
@@ -15,8 +15,11 @@ export default function SiteFooter() {
 
       <nav className="footer-nav" aria-label="Links do rodapé">
         <Link href="/">Início</Link>
-        <Link href="/termos">Termos de Serviço</Link>
-        <Link href="/privacidade">Política de Privacidade</Link>
+        {SITE_PAGES.map((page) => (
+          <Link key={page.href} href={page.href}>
+            {page.label}
+          </Link>
+        ))}
         <a href={SITE.repo} target="_blank" rel="noopener noreferrer">
           Código-fonte ↗
         </a>
@@ -26,7 +29,8 @@ export default function SiteFooter() {
       </nav>
 
       <p className="footer-meta">
-        {SITE.name} — Next.js · Web Audio API · YouTube IFrame API · localStorage · sem rastreamento
+        {SITE.name} — um projeto do <a href={SITE.hub}>lotmhub</a> · Next.js · Web Audio API · sem
+        rastreamento
       </p>
     </footer>
   );

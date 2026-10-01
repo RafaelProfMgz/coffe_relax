@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+/*
+  Documentação (/docs) com a paleta do café: papel envelhecido, café torrado e laranja de outono.
+  Só esta árvore carrega o Tailwind; o app usa o globals.css sem reset de terceiros.
+  O tema segue o sistema operacional, então os tokens trocam pela media query.
+*/
+:root {
+  --paper: #f7f0e2;
+  --paper-deep: #efe4cf;
+  --surface: #fffaf0;
+  --line: #e0d2b8;
+  --ink: #362f28;
+  --ink-soft: #6d6051;
+  --accent: #c65a1e;
+  --accent-ink: #fff6ed;
+  --green: #6f7a34;
+  --red: #b03a2e;
+  --font-mono: var(--font-fira), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-ui: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #211c19;
+    --paper-deep: #1a1613;
+    --surface: #2b2521;
+    --line: #3f362f;
+    --ink: #f0e5d4;
+    --ink-soft: #bdae9a;
+    --accent: #e8843f;
+    --accent-ink: #1a1613;
+    --green: #a3ad5f;
+    --red: #e07a6b;
+    color-scheme: dark;
+  }
+}
+
+@theme {
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-fira), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root,
+.dark {
+  --color-fd-background: var(--paper);
+  --color-fd-foreground: var(--ink);
+  --color-fd-muted: var(--paper-deep);
+  --color-fd-muted-foreground: var(--ink-soft);
+  --color-fd-popover: var(--surface);
+  --color-fd-popover-foreground: var(--ink);
+  --color-fd-card: var(--surface);
+  --color-fd-card-foreground: var(--ink);
+  --color-fd-border: var(--line);
+  --color-fd-primary: var(--accent);
+  --color-fd-primary-foreground: var(--accent-ink);
+  --color-fd-secondary: var(--paper-deep);
+  --color-fd-secondary-foreground: var(--ink);
+  --color-fd-accent: color-mix(in oklab, var(--accent) 14%, transparent);
+  --color-fd-accent-foreground: var(--ink);
+  --color-fd-ring: var(--accent);
+  --color-fd-info: var(--accent);
+  --color-fd-success: var(--green);
+  --color-fd-warning: var(--accent);
+  --color-fd-error: var(--red);
+}
+
+.docs-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.docs-title,
+.prose h2,
+.prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
