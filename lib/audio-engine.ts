@@ -14,16 +14,7 @@
  */
 
 export type LayerId =
-  | "rain"
-  | "storm"
-  | "ocean"
-  | "forest"
-  | "fire"
-  | "cafe"
-  | "wind"
-  | "crickets"
-  | "bowl"
-  | "vinyl";
+  "rain" | "storm" | "ocean" | "forest" | "fire" | "cafe" | "wind" | "crickets" | "bowl" | "vinyl";
 
 interface Layer {
   gain: GainNode;
@@ -35,7 +26,7 @@ interface Layer {
 const PENTATONIC = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25, 783.99, 880.0];
 
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
-const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+const pick = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 
 class AudioEngine {
   private ctx: AudioContext | null = null;
@@ -60,7 +51,8 @@ class AudioEngine {
       return;
     }
     const AC: typeof AudioContext | undefined =
-      window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AC) return;
 
     const ctx = new AC();
@@ -272,7 +264,7 @@ class AudioEngine {
   confirm() {
     if (!this.ctx) return;
     [523.25, 659.25, 783.99].forEach((f, i) =>
-      window.setTimeout(() => this.pluck(f, { gain: 0.24, decay: 0.9, verb: 0.4 }), i * 70)
+      window.setTimeout(() => this.pluck(f, { gain: 0.24, decay: 0.9, verb: 0.4 }), i * 70),
     );
   }
 
@@ -340,11 +332,14 @@ class AudioEngine {
       let alive = true;
       const loop = () => {
         if (!alive) return;
-        const t = window.setTimeout(() => {
-          if (!alive) return;
-          fn();
-          loop();
-        }, rand(minMs, maxMs));
+        const t = window.setTimeout(
+          () => {
+            if (!alive) return;
+            fn();
+            loop();
+          },
+          rand(minMs, maxMs),
+        );
         timers.push(t);
       };
       loop();
@@ -558,7 +553,7 @@ class AudioEngine {
         every(7000, 11000, () => {
           const root = pick([130.81, 146.83, 164.81, 196.0]);
           [1, 1.5, 2.02, 2.51].forEach((mult, i) =>
-            window.setTimeout(() => this.padTone(gain, root * mult), i * 220)
+            window.setTimeout(() => this.padTone(gain, root * mult), i * 220),
           );
         });
         break;

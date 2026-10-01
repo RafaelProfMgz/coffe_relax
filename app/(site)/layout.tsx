@@ -1,31 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Fira_Code, Cormorant_Garamond, Inter } from "next/font/google";
 import Providers from "./providers";
 import { SITE, absoluteUrl } from "@/lib/site";
-import "./globals.css";
-
-/* Fontes servidas pelo próprio domínio: sem requisição a servidores de terceiros. */
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-fira",
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
-});
+import { fontVariables } from "@/lib/fonts";
+import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -136,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="pt-BR"
       data-theme="light"
-      className={`${firaCode.variable} ${cormorant.variable} ${inter.variable}`}
+      className={fontVariables}
     >
       <head>
         <script
