@@ -12,6 +12,10 @@ export const CONSENT_KEY = "coffe_consent_v1";
 
 /** Chaves de preferência que dependem do consentimento. */
 export const PREFERENCE_KEYS = [
+  "coffe_media_v3",
+  "coffe_decks_v1",
+  "coffe_progress_v1",
+  // chaves antigas: continuam aqui para "apagar meus dados" limpar quem veio de versões anteriores
   "coffe_yt_library_v2",
   "coffe_yt_library",
   "coffe_notes",

@@ -29,7 +29,7 @@ export default function Error({
     >
       <p>
         Alguma coisa deu errado ao preparar esta página. Nada do que você salvou foi perdido — sua
-        playlist e suas notas continuam no seu navegador.
+        biblioteca de links continua no seu navegador.
       </p>
       {error.digest && (
         <p className="msg-digest">

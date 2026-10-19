@@ -29,12 +29,12 @@ export default function TermosPage() {
       <h2>1. O que é o serviço</h2>
       <p>
         O {SITE.name} é um ambiente de foco que roda inteiramente no seu navegador. Ele oferece sons ambientes
-        gerados ao vivo, um player para vídeos do YouTube que você mesmo escolhe, um timer pomodoro, um mural
-        de notas e um card de clima.
+        gerados ao vivo e até quatro players para o conteúdo que você mesmo escolhe: vídeos e playlists do
+        YouTube, itens do Spotify, links diretos de áudio e arquivos do seu computador.
       </p>
       <p>
-        Não há cadastro, login, cobrança nem servidor guardando o seu conteúdo. Tudo que você cria — playlist,
-        notas, preferências — fica salvo no armazenamento local do seu próprio navegador.
+        Não há cadastro, login, cobrança nem servidor guardando o seu conteúdo. Tudo que você cria — biblioteca de
+        links, onde você parou, preferências — fica salvo no armazenamento local do seu próprio navegador.
       </p>
       <p>
         Além do ambiente, o site tem uma <Link href="/docs">documentação de uso</Link>, as{" "}
@@ -47,22 +47,25 @@ export default function TermosPage() {
       <h2>2. Quem pode usar</h2>
       <p>
         Qualquer pessoa. Se você tem menos de 16 anos, use com o acompanhamento de um responsável, já que o
-        site permite abrir conteúdo externo do YouTube que não é moderado por nós.
+        site permite abrir conteúdo externo do YouTube e do Spotify que não é moderado por nós.
       </p>
 
       <h2>3. Conteúdo de terceiros</h2>
       <p>
-        Os vídeos e músicas tocados vêm do YouTube, por links que <em>você</em> cola. Nós não hospedamos, não
-        distribuímos e não temos controle sobre esse conteúdo. Ao usar o player, você também está sujeito aos{" "}
+        Os vídeos, músicas, podcasts e audiobooks tocados vêm do YouTube, do Spotify ou de links e arquivos
+        que <em>você</em> escolhe. Nós não hospedamos, não distribuímos e não temos controle sobre esse
+        conteúdo. Ao usar os players, você também está sujeito aos{" "}
         <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">
           Termos de Serviço do YouTube
+        </a>{" "}
+        e aos{" "}
+        <a href="https://www.spotify.com/br-pt/legal/end-user-agreement/" target="_blank" rel="noopener noreferrer">
+          Termos de Uso do Spotify
         </a>
         .
       </p>
       <p>
-        Você é responsável por usar apenas links que tenha o direito de acessar e reproduzir. Os acervos que
-        indicamos (Freesound, Pixabay, Musopen e outros) têm licenças próprias — confira cada faixa antes de
-        reutilizar em um trabalho seu, principalmente em contexto comercial.
+        Você é responsável por usar apenas links e arquivos que tenha o direito de acessar e reproduzir.
       </p>
 
       <h2>4. Uso aceitável</h2>
@@ -72,7 +75,7 @@ export default function TermosPage() {
         <li>tentar derrubar, sobrecarregar ou explorar falhas do site ou dos serviços que ele consome;</li>
         <li>
           contornar as proteções técnicas de plataformas de terceiros (por exemplo, baixar conteúdo do YouTube
-          fora do que a própria plataforma permite).
+          ou do Spotify fora do que a própria plataforma permite).
         </li>
       </ul>
 
@@ -80,8 +83,8 @@ export default function TermosPage() {
       <p>
         Tudo que você salva fica no seu navegador. Isso tem um efeito prático importante:{" "}
         <strong>
-          limpar os dados do site, usar uma janela anônima ou trocar de dispositivo apaga a sua playlist e as
-          suas notas
+          limpar os dados do site, usar uma janela anônima ou trocar de dispositivo apaga a sua biblioteca de
+          links e as posições salvas
         </strong>
         . Não temos como recuperar esse conteúdo, porque nunca chegamos a ter uma cópia dele.
       </p>

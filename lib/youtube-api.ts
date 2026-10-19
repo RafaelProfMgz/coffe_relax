@@ -11,6 +11,16 @@ export interface YTPlayer {
   setVolume(volume: number): void;
   getCurrentTime(): number;
   getDuration(): number;
+  setPlaybackRate(rate: number): void;
+  loadPlaylist(opts: { list: string; listType: "playlist"; index?: number; startSeconds?: number }): void;
+  cuePlaylist(opts: { list: string; listType: "playlist"; index?: number; startSeconds?: number }): void;
+  nextVideo(): void;
+  previousVideo(): void;
+  setLoop(loop: boolean): void;
+  getPlaylist(): string[] | null;
+  getPlaylistIndex(): number;
+  /** não documentado oficialmente, mas estável: título do vídeo atual */
+  getVideoData?(): { title?: string; video_id?: string };
   destroy(): void;
 }
 

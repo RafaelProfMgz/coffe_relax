@@ -18,7 +18,7 @@ export const SITE = {
   locale: "pt_BR",
   tagline: "Uma cafeteria digital para focar com calma",
   description:
-    "Ambiente de foco com sons relaxantes gerados ao vivo no navegador, playlist do YouTube salva localmente, pomodoro, mural de notas e modo noite. Sem conta, sem rastreamento.",
+    "Ambiente de foco com sons relaxantes gerados ao vivo no navegador, até quatro players juntos com YouTube, Spotify e áudio direto, e modo noite. Sem conta, sem rastreamento.",
   /** E-mail público de contato usado nas páginas legais e no formulário. Pode ser trocado em NEXT_PUBLIC_CONTACT_EMAIL. */
   contactEmail: cleanEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL) || "rafaelprojmgz@gmail.com",
   author: "RafaelProfMgz",
@@ -26,7 +26,7 @@ export const SITE = {
   /** Domínio principal do qual este site é um subdomínio. */
   hub: "https://www.lotmhub.com.br",
   /** Data da última revisão dos termos e da política. */
-  legalUpdatedAt: "2026-10-01",
+  legalUpdatedAt: "2026-10-19",
 } as const;
 
 export const absoluteUrl = (path = "/") => `${SITE.url}${path.startsWith("/") ? path : `/${path}`}`;

@@ -7,10 +7,8 @@ import { consentStore, purgePreferences, setStorageAllowed } from "@/lib/storage
 const CONSENT_VERSION = 1;
 
 export interface ConsentState {
-  /** Salvar playlist, notas, volume e tema no navegador. */
+  /** Salvar a biblioteca de links, posições de reprodução, volume e tema no navegador. */
   preferences: boolean;
-  /** Usar a localização do navegador para o clima. */
-  geolocation: boolean;
   version: number;
   decidedAt: string;
 }
@@ -22,9 +20,8 @@ interface ConsentApi {
   consent: ConsentState | null;
   /** Atalhos de leitura. */
   allowPreferences: boolean;
-  allowGeolocation: boolean;
   /** Salva uma decisão (parcial ou completa). */
-  decide: (choice: Partial<Pick<ConsentState, "preferences" | "geolocation">>) => void;
+  decide: (choice: Partial<Pick<ConsentState, "preferences">>) => void;
   /** Apaga a decisão e todos os dados guardados. */
   revoke: () => void;
   /** Controla o painel de preferências. */
@@ -38,11 +35,12 @@ const ConsentContext = createContext<ConsentApi | null>(null);
 function parse(raw: string | null): ConsentState | null {
   if (!raw) return null;
   try {
-    const parsed = JSON.parse(raw) as Partial<ConsentState>;
-    if (parsed.version !== CONSENT_VERSION) return null;
+    // Registros antigos ainda podem trazer um campo `geolocation` (do card de
+    // clima, que não existe mais). Ele é simplesmente ignorado aqui.
+    const parsed = JSON.parse(raw) as Partial<ConsentState> | null;
+    if (!parsed || typeof parsed !== "object" || parsed.version !== CONSENT_VERSION) return null;
     return {
       preferences: Boolean(parsed.preferences),
-      geolocation: Boolean(parsed.geolocation),
       version: CONSENT_VERSION,
       decidedAt: parsed.decidedAt ?? new Date().toISOString(),
     };
@@ -65,11 +63,10 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
     setReady(true);
   }, []);
 
-  const decide = useCallback((choice: Partial<Pick<ConsentState, "preferences" | "geolocation">>) => {
+  const decide = useCallback((choice: Partial<Pick<ConsentState, "preferences">>) => {
     setConsent((prev) => {
       const next: ConsentState = {
         preferences: choice.preferences ?? prev?.preferences ?? false,
-        geolocation: choice.geolocation ?? prev?.geolocation ?? false,
         version: CONSENT_VERSION,
         decidedAt: new Date().toISOString(),
       };
@@ -95,7 +92,6 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
       ready,
       consent,
       allowPreferences: consent?.preferences ?? false,
-      allowGeolocation: consent?.geolocation ?? false,
       decide,
       revoke,
       panelOpen,

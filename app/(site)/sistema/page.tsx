@@ -43,8 +43,8 @@ export default function SistemaPage() {
 
       <h2>Serviços</h2>
       <p>
-        O site e os dois serviços externos que o app usa. O teste só roda quando você aperta o botão, porque ele
-        conversa com o YouTube e o Open-Meteo do mesmo jeito que o app faria.
+        O site e os dois serviços externos que os players usam. O teste só roda quando você aperta o botão,
+        porque ele conversa com o YouTube e o Spotify do mesmo jeito que o app faria.
       </p>
       <ServiceStatus />
 
@@ -101,18 +101,23 @@ export default function SistemaPage() {
             <td>Não, depois que a página carregou</td>
           </tr>
           <tr>
-            <td>Pomodoro, notas, teclado, modo noite</td>
+            <td>Teclado, modo noite e arquivos de áudio do computador</td>
             <td>Seu navegador</td>
             <td>Não</td>
           </tr>
           <tr>
-            <td>Playlist</td>
+            <td>Players: YouTube</td>
             <td>Player oficial do YouTube (youtube-nocookie.com)</td>
             <td>Sim</td>
           </tr>
           <tr>
-            <td>Clima</td>
-            <td>Open-Meteo</td>
+            <td>Players: Spotify</td>
+            <td>Player oficial do Spotify (open.spotify.com), carregado só quando você usa</td>
+            <td>Sim</td>
+          </tr>
+          <tr>
+            <td>Players: links de áudio</td>
+            <td>O site que hospeda o arquivo</td>
             <td>Sim</td>
           </tr>
           <tr>

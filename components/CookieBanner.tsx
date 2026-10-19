@@ -12,9 +12,8 @@ import { useConsent } from "@/hooks/useConsent";
  * ninguém merece um bipe surpresa antes de escolher qualquer coisa.
  */
 export default function CookieBanner() {
-  const { ready, consent, panelOpen, closePanel, decide, revoke, allowPreferences, allowGeolocation } = useConsent();
+  const { ready, consent, panelOpen, closePanel, decide, revoke, allowPreferences } = useConsent();
   const [prefs, setPrefs] = useState(false);
-  const [geo, setGeo] = useState(false);
 
   const needsDecision = ready && consent === null;
   const open = needsDecision || panelOpen;
@@ -23,8 +22,7 @@ export default function CookieBanner() {
   useEffect(() => {
     if (!open) return;
     setPrefs(allowPreferences || consent === null);
-    setGeo(allowGeolocation);
-  }, [open, allowPreferences, allowGeolocation, consent]);
+  }, [open, allowPreferences, consent]);
 
   // Esc fecha o painel (só quando já existe uma decisão salva)
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function CookieBanner() {
           <label className="consent-row">
             <div className="consent-row-text">
               <strong>Preferências</strong>
-              <span>Sua playlist do YouTube, notas, volume e modo noite, salvos no navegador.</span>
+              <span>Sua biblioteca de links, onde você parou nos áudios longos, volume e modo noite, salvos no navegador.</span>
             </div>
             <input
               type="checkbox"
@@ -78,33 +76,16 @@ export default function CookieBanner() {
               aria-label="Permitir salvar preferências no navegador"
             />
           </label>
-
-          <label className="consent-row">
-            <div className="consent-row-text">
-              <strong>Localização</strong>
-              <span>
-                Usa a localização do navegador só para mostrar o clima da sua região. O seu navegador ainda
-                vai pedir confirmação.
-              </span>
-            </div>
-            <input
-              type="checkbox"
-              className="consent-check"
-              checked={geo}
-              onChange={(e) => setGeo(e.target.checked)}
-              aria-label="Permitir uso da localização"
-            />
-          </label>
         </div>
 
         <div className="consent-actions">
-          <button className="btn btn-solid" onClick={() => decide({ preferences: true, geolocation: true })}>
+          <button className="btn btn-solid" onClick={() => decide({ preferences: true })}>
             aceitar tudo
           </button>
-          <button className="btn" onClick={() => decide({ preferences: prefs, geolocation: geo })}>
+          <button className="btn" onClick={() => decide({ preferences: prefs })}>
             salvar escolha
           </button>
-          <button className="btn btn-outline" onClick={() => decide({ preferences: false, geolocation: false })}>
+          <button className="btn btn-outline" onClick={() => decide({ preferences: false })}>
             só o necessário
           </button>
           {consent !== null && (
