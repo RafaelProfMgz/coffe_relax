@@ -23,12 +23,12 @@ export const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       {
         q: "Funciona sem internet?",
-        a: "Os sons ambientes, o pomodoro, as notas e o teclado funcionam depois que a página carregou, porque rodam no seu navegador. A playlist do YouTube e o clima precisam de conexão.",
+        a: "Os sons ambientes, o teclado e os arquivos de áudio abertos do seu computador funcionam depois que a página carregou, porque rodam no seu navegador. YouTube, Spotify e links de áudio precisam de conexão.",
       },
     ],
   },
   {
-    title: "Sons e playlist",
+    title: "Sons e players",
     items: [
       {
         q: "De onde vêm os sons de chuva, mar e lareira?",
@@ -37,15 +37,27 @@ export const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       },
       {
         q: "Posso misturar vários sons ao mesmo tempo?",
-        a: "Pode. Os dez sons tocam juntos, cada um com seu volume, e ainda dá para tocar a playlist do YouTube por cima. As cinco misturas prontas são um bom ponto de partida.",
+        a: "Pode. Os dez sons tocam juntos, cada um com seu volume, e ainda dá para tocar até quatro players por cima. As cinco misturas prontas são um bom ponto de partida.",
       },
       {
-        q: "Que links do YouTube funcionam na playlist?",
-        a: "Links de vídeo (youtube.com/watch?v=…), links curtos (youtu.be/…), Shorts, lives, links de incorporação (/embed/) e até o código do vídeo sozinho. O título é buscado automaticamente se você não digitar um.",
-        link: { href: "/docs/playlist", label: "Playlist do YouTube" },
+        q: "O que dá para tocar nos players?",
+        a: "Vídeos e playlists do YouTube (links com list=), Spotify (faixa, álbum, playlist, artista, episódio, podcast e audiobook), links diretos de áudio (mp3, m4a, ogg, wav, opus, flac, aac) e arquivos de áudio do seu computador. O título é buscado automaticamente se você não digitar um.",
+        link: { href: "/docs/playlist", label: "Players e canais" },
       },
       {
-        q: "Por que um vídeo da playlist não toca?",
+        q: "Dá para ouvir duas coisas ao mesmo tempo?",
+        a: "Dá. São até quatro canais tocando juntos, cada um com seu volume e um rótulo, como Música, Audiobook ou Podcast. Por exemplo: um audiobook num canal e uma música baixinha em outro.",
+      },
+      {
+        q: "O audiobook volta de onde eu parei?",
+        a: 'Volta. Itens com 10 minutos ou mais (audiobooks, podcasts, mixes longos) guardam a posição no seu navegador, se você autorizou "Preferências". No YouTube e no áudio direto, dá também para mudar a velocidade de 0,75× a 2×.',
+      },
+      {
+        q: "Por que o Spotify só toca 30 segundos?",
+        a: "Sem estar logado no Spotify neste navegador, o player oficial deles toca só prévias de 30 segundos. O player do Spotify também não deixa o site mudar o volume nem pular faixas: isso é feito no próprio player embutido.",
+      },
+      {
+        q: "Por que um vídeo do YouTube não toca?",
         a: "Alguns vídeos têm a reprodução em outros sites desativada pelo dono, ou estão bloqueados na sua região. Nesses casos o player do YouTube recusa a faixa; troque por outra versão do mesmo vídeo.",
       },
     ],
@@ -54,21 +66,21 @@ export const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
     title: "Seus dados",
     items: [
       {
-        q: "Onde ficam minha playlist e minhas notas?",
+        q: "Onde fica a minha biblioteca de links?",
         a: 'No armazenamento local (localStorage) do seu navegador, e só se você autorizar "Preferências" no aviso de privacidade. Nada disso vai para um servidor nosso.',
         link: { href: "/privacidade", label: "Política de Privacidade" },
       },
       {
-        q: "Perdi minhas notas. Dá para recuperar?",
+        q: "Meus arquivos de áudio são enviados para algum lugar?",
+        a: "Não. Um arquivo aberto do seu computador toca só nesta sessão, direto do seu disco. Ele não é enviado para lugar nenhum e não fica guardado; ao recarregar a página, é só abrir de novo.",
+      },
+      {
+        q: "Perdi minha biblioteca. Dá para recuperar?",
         a: "Infelizmente não. Como os dados ficam só no seu navegador, limpar os dados do site, usar janela anônima ou trocar de aparelho apaga tudo, e nós nunca tivemos uma cópia.",
       },
       {
-        q: "Como passo minha playlist para outro computador?",
-        a: "Ainda não existe sincronização. Por enquanto, a forma de levar a playlist é adicionar os mesmos links no outro navegador. A sincronização opcional está no plano do projeto.",
-      },
-      {
-        q: "O site usa minha localização?",
-        a: "Só se você pedir. O clima mostra São Paulo por padrão; para ver o do seu lugar você autoriza aqui no site e no pedido do navegador. As coordenadas servem para uma única consulta e não são guardadas.",
+        q: "Como passo minha biblioteca para outro computador?",
+        a: "Ainda não existe sincronização. Por enquanto, a forma de levar a biblioteca é adicionar os mesmos links no outro navegador. A sincronização opcional está no plano do projeto.",
       },
       {
         q: "Como apago tudo o que o site guardou?",

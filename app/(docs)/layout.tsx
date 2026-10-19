@@ -12,7 +12,7 @@ import "../docs.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: `Como usar — ${SITE.name}`, template: `%s — ${SITE.name}` },
-  description: `Guia do ${SITE.name}: sons ambientes, playlist do YouTube, pomodoro, notas, clima e privacidade.`,
+  description: `Guia do ${SITE.name}: sons ambientes, players com YouTube, Spotify e áudio direto, atalhos e privacidade.`,
 };
 
 export const viewport: Viewport = {

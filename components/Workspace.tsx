@@ -5,12 +5,8 @@ import StartOverlay from "@/components/StartOverlay";
 import Topbar from "@/components/Topbar";
 import Keypad, { KEYS, type KeyDef } from "@/components/Keypad";
 import TerminalLog from "@/components/TerminalLog";
-import SmartNotes from "@/components/SmartNotes";
-import Pomodoro from "@/components/Pomodoro";
-import WeatherCard from "@/components/WeatherCard";
 import AmbienceMixer from "@/components/AmbienceMixer";
-import PublicLibraries from "@/components/PublicLibraries";
-import YouTubePlayer from "@/components/YouTubePlayer";
+import { DeckBoard, LibraryPanel, useMediaStation } from "@/components/player/MediaStation";
 import { useSound } from "@/hooks/useSound";
 import { useConsent } from "@/hooks/useConsent";
 import { store } from "@/lib/storage";
@@ -20,6 +16,7 @@ const THEME_KEY = "coffe_focus";
 
 export default function Workspace() {
   const sound = useSound();
+  const station = useMediaStation();
   const [log, setLog] = useState("aguardando input...");
   const [mode, setMode] = useState("VISUAL");
   const [focus, setFocus] = useState(false);
@@ -87,9 +84,14 @@ export default function Workspace() {
       <Topbar mode={mode} focus={focus} onFocusToggle={() => { sound.toggle(!focus); setFocus((f) => !f); }} />
 
       <div className="shell">
-        <div className="grid">
+        <DeckBoard station={station} />
+
+        <div className="grid" style={{ marginTop: 22 }}>
           <div className="col">
-            <YouTubePlayer />
+            <LibraryPanel station={station} />
+          </div>
+
+          <div className="col">
             <AmbienceMixer />
 
             <section className="panel" aria-label="Teclado de notas">
@@ -103,23 +105,7 @@ export default function Workspace() {
               <TerminalLog text={log} />
             </section>
           </div>
-
-          <div className="col">
-            <Pomodoro />
-            <WeatherCard />
-            <PublicLibraries />
-          </div>
         </div>
-
-        <section className="panel" style={{ marginTop: 22 }} aria-label="Mural de notas">
-          <header className="panel-head">
-            <div>
-              <h2 className="panel-title">Mural de Notas</h2>
-              <p className="panel-sub">Arraste, pinte e escreva. Fica salvo no seu navegador.</p>
-            </div>
-          </header>
-          <SmartNotes />
-        </section>
 
         <SiteFooter />
       </div>

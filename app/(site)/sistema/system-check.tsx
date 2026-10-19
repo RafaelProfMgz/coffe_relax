@@ -15,7 +15,7 @@ function browserChecks(): Check[] {
     const k = "__coffe_probe__";
     window.localStorage.setItem(k, "1");
     window.localStorage.removeItem(k);
-    storage = { label: "Armazenamento local", result: "ok", detail: "Disponível para salvar playlist e notas (com o seu aceite)." };
+    storage = { label: "Armazenamento local", result: "ok", detail: "Disponível para salvar a biblioteca e onde você parou (com o seu aceite)." };
   } catch {
     storage = {
       label: "Armazenamento local",
@@ -23,6 +23,20 @@ function browserChecks(): Check[] {
       detail: "Bloqueado (janela anônima ou cookies desativados). O app funciona, mas esquece tudo ao recarregar.",
     };
   }
+
+  // Formatos de áudio direto (links e arquivos do computador) que este navegador consegue tocar.
+  const probeAudio = document.createElement("audio");
+  const formats = [
+    ["mp3", "audio/mpeg"],
+    ["m4a", "audio/mp4"],
+    ["aac", "audio/aac"],
+    ["ogg", "audio/ogg"],
+    ["opus", 'audio/ogg; codecs="opus"'],
+    ["wav", "audio/wav"],
+    ["flac", "audio/flac"],
+  ] as const;
+  const playable = formats.filter(([, mime]) => probeAudio.canPlayType(mime) !== "").map(([ext]) => ext);
+  const missing = formats.map(([ext]) => ext).filter((ext) => !playable.includes(ext));
 
   return [
     {
@@ -35,22 +49,21 @@ function browserChecks(): Check[] {
     },
     storage,
     {
-      label: "Pointer Events",
-      result: "PointerEvent" in window ? "ok" : "warn",
-      detail: "PointerEvent" in window ? "Dá para arrastar as notas do mural." : "Arrastar as notas pode não funcionar.",
-    },
-    {
-      label: "Geolocalização",
-      result: "geolocation" in navigator ? "ok" : "warn",
+      label: "Áudio direto",
+      result: playable.length === 0 ? "fail" : missing.length === 0 ? "ok" : "warn",
       detail:
-        "geolocation" in navigator
-          ? "Disponível, mas só é usada se você pedir o clima do seu lugar."
-          : "Indisponível: o clima continua com São Paulo.",
+        playable.length === 0
+          ? "Este navegador não toca links nem arquivos de áudio."
+          : missing.length === 0
+            ? "Toca links e arquivos mp3, m4a, aac, ogg, opus, wav e flac."
+            : `Toca ${playable.join(", ")}. Não toca ${missing.join(", ")}.`,
     },
     {
       label: "Conexão",
       result: navigator.onLine ? "ok" : "warn",
-      detail: navigator.onLine ? "On-line." : "Sem internet: sons e notas funcionam, playlist e clima não.",
+      detail: navigator.onLine
+        ? "On-line."
+        : "Sem internet: os sons ambientes e os arquivos do computador funcionam; YouTube, Spotify e links de áudio, não.",
     },
     {
       label: "Movimento reduzido",
@@ -106,14 +119,15 @@ export function ServiceStatus() {
   const [checks, setChecks] = useState<Check[] | null>(null);
   const [running, setRunning] = useState(false);
 
-  // Só roda quando você pede: os testes falam com o YouTube e o Open-Meteo, como o próprio app faria.
+  // Só roda quando você pede: os testes falam com o YouTube e o Spotify, como o próprio app faria.
   const run = async () => {
     setRunning(true);
     setChecks(
       await Promise.all([
         probe("coffe to relax", "/api/status"),
-        probe("YouTube (títulos da playlist)", "https://www.youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DjfKfPfyJRdk&format=json"),
-        probe("Open-Meteo (clima)", "https://api.open-meteo.com/v1/forecast?latitude=-23.55&longitude=-46.63&current_weather=true"),
+        probe("YouTube (títulos da biblioteca)", "https://www.youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DjfKfPfyJRdk&format=json"),
+        // O script do player do Spotify não libera CORS: a resposta opaca já basta para saber que ele está no ar.
+        probe("Spotify (player embutido)", "https://open.spotify.com/embed/iframe-api/v1", { mode: "no-cors" }),
       ]),
     );
     setRunning(false);

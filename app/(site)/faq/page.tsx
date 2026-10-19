@@ -6,7 +6,7 @@ import { SITE, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Perguntas frequentes",
-  description: `Dúvidas comuns sobre o ${SITE.name}: som que não toca, playlist do YouTube, onde ficam suas notas, localização e privacidade.`,
+  description: `Dúvidas comuns sobre o ${SITE.name}: som que não toca, players com YouTube e Spotify, audiobooks, onde fica a sua biblioteca e privacidade.`,
   alternates: { canonical: absoluteUrl("/faq") },
   openGraph: {
     title: `Perguntas frequentes — ${SITE.name}`,

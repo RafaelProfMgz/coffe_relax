@@ -1,0 +1,57 @@
+/* ══════════════════════════════════════════════════════════════
+   Tailwind + shadcn/ui no app.
+   Entra sem o preflight (reset) do Tailwind para não mexer no visual
+   que já existe: o globals.css continua sendo a base e, por ser CSS
+   fora de camada, sempre vence as utilidades em caso de conflito.
+   As cores do shadcn apontam para os tokens Papel & Café, então os
+   componentes trocam junto com o Modo Noite ([data-theme="dark"]).
+   ══════════════════════════════════════════════════════════════ */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--ink);
+  --color-muted: var(--paper-deep);
+  --color-muted-foreground: var(--ink-soft);
+  --color-accent: var(--accent-soft);
+  --color-accent-foreground: var(--ink);
+  --color-destructive: var(--red);
+  --color-border: var(--line);
+  --color-input: var(--line);
+  --color-ring: var(--accent);
+
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-leaf: var(--green);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+
+  --shadow-glow: var(--glow);
+  --shadow-glow-lg: var(--glow-lg);
+
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-display);
+  --ease-cafe: var(--ease);
+}

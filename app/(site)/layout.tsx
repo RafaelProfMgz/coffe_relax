@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Providers from "./providers";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { fontVariables } from "@/lib/fonts";
+import "../tailwind.css";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
     "ambiente de foco",
     "lo-fi para estudar",
     "ruído branco",
-    "pomodoro online",
-    "playlist do youtube offline",
+    "ouvir audiobook e música ao mesmo tempo",
+    "player de youtube e spotify",
     "sons para concentração",
     "ASMR ambiente",
     "cafeteria sonora",
@@ -89,9 +90,9 @@ const jsonLd = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
       featureList: [
         "Sons ambientes sintetizados ao vivo",
-        "Playlist do YouTube salva no navegador",
-        "Timer pomodoro",
-        "Mural de notas",
+        "Até quatro players simultâneos com volume próprio",
+        "YouTube, Spotify, links de áudio e arquivos locais",
+        "Retomar audiobooks e podcasts de onde parou",
         "Modo noite",
       ],
       author: { "@type": "Person", name: SITE.author, url: SITE.repo },

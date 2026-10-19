@@ -10,7 +10,7 @@
 
 O **coffe to relax** (evolução do `~/.vim/cafe.rc`) nasceu de uma necessidade simples: ter um espaço digital que não gritasse urgência. Vivemos em painéis administrativos frios, estéreis e estressantes. Este projeto propõe o oposto — uma **Central Administrativa Pessoal** com estética de cafeteria e som de chuva. 
 
-Atualmente, ele funciona como um ambiente de foco e relaxamento (um *ASMR board* interativo com notas autoadesivas). No entanto, **a visão de longo prazo é evoluir esta interface para uma Central Administrativa completa e conectada**. 
+Atualmente, ele funciona como um ambiente de foco e relaxamento (um *ASMR board* interativo com players de música, podcasts e audiobooks). No entanto, **a visão de longo prazo é evoluir esta interface para uma Central Administrativa completa e conectada**. 
 
 Imagine gerenciar sua agenda, ler emails, organizar tarefas e monitorar métricas em um painel que te faz sentir como se estivesse em uma cafeteria em uma tarde chuvosa de outono. Produtividade através da calmaria.
 
@@ -28,18 +28,18 @@ A paleta foi escolhida para não cansar os olhos: pergaminho envelhecido, marron
 
 ## Funcionalidades Atuais
 
-*   🎵 **Playlist do YouTube (localStorage):** Cole o link, o **título é buscado automaticamente** (oEmbed) e link + título ficam salvos no navegador. Player completo com *play/pause*, **avançar, voltar, pular direto para a faixa escolhida**, barra de progresso, volume próprio, aleatório, repetição (off / tudo / uma), modo só-áudio, renomear e reordenar.
+*   🎵 **Players em canais:** Até **4 players tocando ao mesmo tempo**, cada um com volume próprio e um rótulo (Música, Audiobook, Podcast) — um audiobook num canal e uma música em outro.
+    *   **Fontes:** vídeo do YouTube; playlist do YouTube (link com `list=`), com avançar/voltar dentro dela; Spotify (faixa, álbum, playlist, artista, episódio, podcast/show, audiobook); link direto de áudio (`mp3`, `m4a`, `ogg`, `wav`, `opus`, `flac`, `aac`); arquivo de áudio do computador (só nesta sessão, nunca enviado para lugar nenhum).
+    *   **Retomar de onde parou:** itens com 10 minutos ou mais guardam a posição no navegador.
+    *   **Por canal:** velocidade de 0,75× a 2× (YouTube e áudio direto), repetição (desligada / repetir o item / seguir para o próximo da biblioteca) e mostrar/esconder o vídeo.
+    *   **Biblioteca no localStorage** (com consentimento), com títulos buscados automaticamente pelo oEmbed do YouTube e do Spotify.
+    *   **Limitações do Spotify:** o player oficial não deixa o site controlar o volume nem pular faixas (isso fica no próprio player embutido), e sem login no Spotify ele toca prévias de 30 segundos.
 *   🎚️ **Mesa de Ambiente:** 10 camadas sonoras sintetizadas ao vivo — chuva, trovão, mar, floresta, lareira, cafeteria, vento, grilos, tigela tibetana e vinil lo-fi. Todas **tocam simultaneamente**, cada uma com seu próprio *slider*, mais 5 combinações prontas. Zero download, zero CORS, zero licença.
-*   📚 **Bibliotecas Públicas:** Atalhos curados para **Freesound** (CC0/CC-BY), **Pixabay Sound Effects** (livre para uso comercial, sem créditos), **Musopen** (clássico em domínio público), Internet Archive e Openverse — cada um com o tipo de licença em destaque.
 *   ☕ **Sons de interface "gostosinhos":** Cliques híbridos de kalimba com tecla mecânica — transiente de ruído filtrado, corpo senoidal afinado e reverb de sala pequena. Os cliques caminham por uma **escala pentatônica**, então clicar rápido vira melodia em vez de ruído.
 *   ⌨️ **Teclado Vim-style:** `h`, `j`, `k`, `l`, `w`, `b` e `[espaço]` fora das caixas de texto tocam notas afinadas.
-*   📝 **Mural de Notas:** Notas autoadesivas com arraste (Pointer Events), cores, texto e posição salvos no `localStorage`.
-*   ⏱️ **Pomodoro:** Anel de progresso animado, contagem de ciclos e tigela tibetana no fim de cada bloco.
-*   🌤️ **Clima real:** Open-Meteo com geolocalização (cai em São Paulo se você negar a permissão).
 *   🌙 **Modo Noite:** Troca completa de tema, persistida entre sessões.
-*   🍪 **Consentimento de verdade:** Banner na primeira visita com categorias separadas (necessário / preferências / localização). **Nada é gravado no navegador antes do aceite** — e o botão *apagar meus dados* limpa tudo na hora. Reabra as escolhas pelo rodapé quando quiser.
-*   📍 **Localização só com permissão dupla:** O clima carrega São Paulo por padrão. Para usar a sua posição, você autoriza aqui no site **e** no pedido do próprio navegador — com botão de revogar no card.
-*   🔒 **Zero rastreamento por construção:** Sem analytics, sem pixels, sem cookies de publicidade. As fontes são servidas pelo próprio domínio (`next/font`) e o player usa `youtube-nocookie.com`.
+*   🍪 **Consentimento de verdade:** Banner na primeira visita com categorias separadas (necessário / preferências). **Nada é gravado no navegador antes do aceite** — e o botão *apagar meus dados* limpa tudo na hora. Reabra as escolhas pelo rodapé quando quiser.
+*   🔒 **Zero rastreamento por construção:** Sem analytics, sem pixels, sem cookies de publicidade. As fontes são servidas pelo próprio domínio (`next/font`) o YouTube toca por `youtube-nocookie.com` e o player do Spotify (`open.spotify.com`) só é carregado quando um item do Spotify entra num canal.
 *   📄 **Páginas legais:** [Termos de Serviço](/termos) e [Política de Privacidade](/privacidade) escritas em português claro, com tabela do que é guardado e como exercer direitos da LGPD/GDPR.
 *   🔎 **SEO completo:** Metadata API do Next (canonical, Open Graph, Twitter Card, keywords, robots), **JSON-LD** (`WebApplication` + `WebSite`), `sitemap.xml`, `robots.txt`, `llms.txt`, Web App Manifest e imagem de compartilhamento + favicons **gerados em build** com `next/og`.
 *   🎨 **Ícone próprio:** Xícara com vapor desenhado em ondas — lê como fumaça de café e como onda sonora ao mesmo tempo. SVG vetorial para o navegador, PNG para o iOS.
@@ -49,12 +49,10 @@ A paleta foi escolhida para não cansar os olhos: pergaminho envelhecido, marron
 
 O ambiente relaxante de hoje é a fundação para o *dashboard* de amanhã. O roteiro de atualizações transformará o **cafe.rc** no seu principal hub de produtividade:
 
-- [ ] **Sincronização em Nuvem (Firebase):** Sistema de login e autenticação seguro. Suas notas e configurações não ficarão mais presas ao navegador.
+- [ ] **Sincronização em Nuvem (Firebase):** Sistema de login e autenticação seguro. Sua biblioteca e suas configurações não ficarão mais presas ao navegador.
 - [ ] **Agenda Zen (Integração Google Calendar):** Visualize seus compromissos e planeje seu dia sem sair do seu refúgio.
 - [ ] **Caixa de Entrada Calma (Integração Gmail):** Conexão com sua conta de email para ler mensagens essenciais em uma interface minimalista.
-- [x] **Card de Clima Atmosférico:** Um *widget* mostrando o clima real da sua cidade com a estética do terminal.
-- [x] **Módulo Pomodoro:** Um *timer* integrado de forma discreta na *mode-line* do Vim, intercalando momentos de foco com pausas para o café.
-- [ ] **Comandos Reais no Terminal:** Fazer o log inferior ganhar vida aceitando *inputs* reais (`:clear`, `:focus`, `:new-note`, `:login`).
+- [ ] **Comandos Reais no Terminal:** Fazer o log inferior ganhar vida aceitando *inputs* reais (`:clear`, `:focus`, `:play`, `:login`).
 
 ## Privacidade e SEO
 

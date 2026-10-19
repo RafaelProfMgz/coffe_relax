@@ -1,46 +1,68 @@
 ---
-title: Playlist do YouTube
-description: Monte uma playlist com links do YouTube, salva no seu navegador.
+title: Players e canais
+description: Até quatro players tocando juntos, com YouTube, Spotify, links de áudio e arquivos do seu computador.
 ---
 
-O player toca vídeos do YouTube que **você** escolhe, pelo player oficial no modo sem cookies (`youtube-nocookie.com`). A lista fica no seu navegador, nunca num servidor nosso.
+O player do café é dividido em **canais**. São até quatro tocando ao mesmo tempo, cada um com o seu volume e um rótulo, como **Música**, **Audiobook** ou **Podcast**. Dá para deixar um audiobook num canal e uma música baixinha em outro, com a Mesa de Ambiente por baixo de tudo.
 
-## Adicionar uma faixa
+## O que dá para tocar
+
+| Fonte | Exemplos |
+| :--- | :--- |
+| Vídeo do YouTube | `youtube.com/watch?v=…`, `youtu.be/…`, Shorts, lives, `/embed/…` ou só o código do vídeo. |
+| Playlist do YouTube | Qualquer link com `list=`. Os botões de avançar e voltar andam dentro da playlist. |
+| Spotify | Faixa, álbum, playlist, artista, episódio, podcast (show) e audiobook. |
+| Link direto de áudio | Arquivos `mp3`, `m4a`, `ogg`, `wav`, `opus`, `flac` e `aac` hospedados em algum lugar. |
+| Arquivo do computador | Um áudio seu, aberto direto do disco. |
+
+<Callout title="Arquivos do computador">
+O arquivo toca só nesta sessão: ele não é enviado para lugar nenhum e não fica guardado. Ao recarregar a página, é só abrir de novo.
+</Callout>
+
+## Montar um canal
 
 <Steps>
 <Step>
-Copie o link do vídeo no YouTube.
+Copie o link no YouTube, no Spotify ou do arquivo de áudio.
 </Step>
 <Step>
-Cole no campo de link do player. O título é opcional: se você deixar em branco, ele é buscado sozinho.
+Cole no campo de link. O título é buscado sozinho (pelo oEmbed do YouTube e do Spotify), mas você pode trocar.
 </Step>
 <Step>
-Adicione. A faixa entra no fim da lista com a miniatura do vídeo.
+Coloque o item num canal e dê play. Para ouvir outra coisa junto, use outro canal.
 </Step>
 </Steps>
 
-Funcionam links de vídeo (`youtube.com/watch?v=…`), links curtos (`youtu.be/…`), Shorts, lives, links de incorporação (`/embed/…`) e até só o código do vídeo.
-
-## Controles
+## Controles de cada canal
 
 | Controle | O que faz |
 | :--- | :--- |
-| ⏮ / ⏭ | Faixa anterior / próxima. |
-| ▶ / ⏸ | Tocar ou pausar. |
-| Barra de progresso | Pular para qualquer ponto da faixa. |
-| Aleatório | Sorteia a próxima faixa. |
-| Repetição | Alterna entre **tudo** (volta ao início no fim da lista), **uma** (repete a faixa) e **off**. |
+| Rótulo | Dá um nome ao canal: Música, Audiobook, Podcast… |
+| ▶ / ⏸ | Tocar ou pausar só aquele canal. |
+| Volume | Volume do canal, separado dos outros e do volume geral. |
+| ⏮ / ⏭ | Voltar ou avançar dentro de uma playlist do YouTube. |
+| Velocidade | De 0,75× a 2×, no YouTube e no áudio direto. Bom para podcasts e audiobooks. |
+| Repetição | **Desligada**, **repetir o item** ou **seguir para o próximo** da biblioteca. |
 | Vídeo | Mostra ou esconde o vídeo, para ouvir só o áudio. |
-| Volume | Volume só do YouTube, separado do volume geral. |
 
-## Organizar a lista
+## Retomar de onde parou
 
-- **Clique numa faixa** para tocá-la na hora.
-- **Filtrar** procura pelo título.
-- **↑ / ↓** sobem ou descem a faixa na ordem.
-- **Renomear** troca o título que aparece na lista.
-- **Remover** tira a faixa da biblioteca.
+Itens com **10 minutos ou mais** (audiobooks, podcasts, mixes longos) guardam a posição no seu navegador. Na próxima vez, eles voltam dali. Isso também depende de você ter autorizado **Preferências**.
 
-<Callout type="warn" title="A playlist depende do seu aceite">
-Sem autorizar **Preferências** no aviso de privacidade, a playlist funciona, mas some quando você recarrega a página. Limpar os dados do navegador também apaga a lista. Veja [Privacidade e dados](/docs/privacidade-e-dados).
+## Sobre o Spotify
+
+O Spotify toca pelo player oficial deles, embutido na página. Por isso:
+
+- **o volume e o pular faixa** ficam no próprio player do Spotify; o site não consegue controlá-los;
+- **sem estar logado** no Spotify neste navegador, ele toca prévias de 30 segundos;
+- o player do Spotify só é carregado quando você coloca um item do Spotify num canal. A partir daí, valem as regras de privacidade do Spotify.
+
+O YouTube toca pelo player oficial no modo sem cookies (`youtube-nocookie.com`).
+
+## A biblioteca
+
+Todo link que você adiciona vai para a sua biblioteca, que fica no seu navegador, nunca num servidor nosso. Dela você manda um item para qualquer canal, renomeia ou remove.
+
+<Callout type="warn" title="A biblioteca depende do seu aceite">
+Sem autorizar **Preferências** no aviso de privacidade, os players funcionam, mas a biblioteca e as posições salvas somem quando você recarrega a página. Limpar os dados do navegador também apaga tudo. Veja [Privacidade e dados](/docs/privacidade-e-dados).
 </Callout>

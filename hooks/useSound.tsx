@@ -14,7 +14,6 @@ interface SoundApi {
   toggle: (on: boolean) => void;
   confirm: () => void;
   reject: () => void;
-  chime: () => void;
   note: (index: number) => void;
   /** Volume geral 0..100. */
   volume: number;
@@ -91,7 +90,6 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   const hover = useMemo(() => guard(() => engine.hover()), [guard, engine]);
   const confirm = useMemo(() => guard(() => engine.confirm()), [guard, engine]);
   const reject = useMemo(() => guard(() => engine.reject()), [guard, engine]);
-  const chime = useMemo(() => guard(() => engine.chime()), [guard, engine]);
 
   const toggle = useCallback(
     (on: boolean) => {
@@ -148,7 +146,6 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     toggle,
     confirm,
     reject,
-    chime,
     note,
     volume,
     setVolume,

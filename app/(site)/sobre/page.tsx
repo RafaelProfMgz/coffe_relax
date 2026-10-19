@@ -40,16 +40,12 @@ export default function SobrePage() {
           próprio, e cinco misturas prontas.
         </li>
         <li>
-          <strong>Playlist do YouTube:</strong> cole links, o título vem sozinho e tudo fica salvo no seu
-          navegador.
+          <strong>Players em canais:</strong> até quatro tocando juntos, cada um com seu volume — um
+          audiobook num canal e uma música em outro. Aceita YouTube (vídeos e playlists), Spotify, links de
+          áudio e arquivos do seu computador, e retoma audiobooks e podcasts de onde você parou.
         </li>
         <li>
-          <strong>Pomodoro:</strong> blocos de 25 minutos de foco e 5 de pausa, com uma tigela tibetana na
-          virada.
-        </li>
-        <li>
-          <strong>Mural de notas</strong>, <strong>clima</strong>, <strong>modo noite</strong> e um teclado de
-          notas no estilo vim (<code>h j k l w b</code>).
+          <strong>Modo noite</strong> e um teclado de notas no estilo vim (<code>h j k l w b</code>).
         </li>
       </ul>
       <p>
@@ -62,7 +58,7 @@ export default function SobrePage() {
           <strong>Sem conta e sem rastreamento.</strong> Não há login, analytics, pixels nem anúncios.
         </li>
         <li>
-          <strong>Seus dados ficam com você.</strong> Playlist, notas e preferências ficam no seu navegador, e
+          <strong>Seus dados ficam com você.</strong> Biblioteca de links e preferências ficam no seu navegador, e
           só depois que você autoriza. Detalhes na <Link href="/privacidade">Política de Privacidade</Link>.
         </li>
         <li>

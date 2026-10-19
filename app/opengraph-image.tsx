@@ -45,11 +45,11 @@ export default function OpengraphImage() {
 
         {/* Satori exige um único filho aqui — texto montado numa string só */}
         <div style={{ display: "flex", fontSize: 40, color: "#6d6051", maxWidth: 940, lineHeight: 1.35 }}>
-          {`${SITE.tagline} — sons relaxantes ao vivo, playlist do YouTube e pomodoro. Sem contas, sem rastreamento.`}
+          {`${SITE.tagline} — sons relaxantes ao vivo, YouTube, Spotify e audiobooks juntos. Sem contas, sem rastreamento.`}
         </div>
 
         <div style={{ display: "flex", gap: 14, marginTop: 40 }}>
-          {["🌧 chuva", "🔥 lareira", "☕ cafeteria", "📻 lo-fi", "⏱ pomodoro"].map((tag) => (
+          {["🌧 chuva", "🔥 lareira", "☕ cafeteria", "📻 lo-fi", "🎧 audiobook"].map((tag) => (
             <div
               key={tag}
               style={{

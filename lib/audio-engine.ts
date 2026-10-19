@@ -279,13 +279,6 @@ class AudioEngine {
     this.pluck(f * 2, { gain: 0.36, decay: 1.1, verb: 0.42 });
   }
 
-  /** Sino do pomodoro — tigela tibetana curta. */
-  chime() {
-    const ctx = this.ctx;
-    if (!ctx) return;
-    this.bowlStrike(this.uiBus!, 0.3, 440);
-  }
-
   // ────────────────────────────────────────────── camadas de ambiente
 
   isLayerOn(id: LayerId) {

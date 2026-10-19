@@ -5,7 +5,7 @@ import { SITE, absoluteUrl, legalUpdatedLabel } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
-  description: `Como o ${SITE.name} trata seus dados: armazenamento local, consentimento, geolocalização e serviços de terceiros. Sem contas e sem rastreamento.`,
+  description: `Como o ${SITE.name} trata seus dados: armazenamento local, consentimento e serviços de terceiros. Sem contas e sem rastreamento.`,
   alternates: { canonical: absoluteUrl("/privacidade") },
   openGraph: {
     title: `Política de Privacidade — ${SITE.name}`,
@@ -57,16 +57,23 @@ export default function PrivacidadePage() {
           </tr>
           <tr>
             <td>
-              <code>coffe_yt_library_v2</code>
+              <code>coffe_media_v3</code>
             </td>
-            <td>Sua playlist: link e título de cada faixa que você salvou.</td>
+            <td>Sua biblioteca: link e título de cada item que você salvou (YouTube, Spotify ou link de áudio).</td>
             <td>Consentimento</td>
           </tr>
           <tr>
             <td>
-              <code>coffe_notes</code>
+              <code>coffe_decks_v1</code>
             </td>
-            <td>Texto, cor e posição das notas do mural.</td>
+            <td>Como estão os seus canais: rótulo, volume, velocidade, repetição e se o vídeo aparece.</td>
+            <td>Consentimento</td>
+          </tr>
+          <tr>
+            <td>
+              <code>coffe_progress_v1</code>
+            </td>
+            <td>Onde você parou em itens de 10 minutos ou mais, para retomar dali.</td>
             <td>Consentimento</td>
           </tr>
           <tr>
@@ -84,24 +91,16 @@ export default function PrivacidadePage() {
         funciona normalmente, só esquece tudo ao recarregar. Se você aceitar e depois mudar de ideia, o botão{" "}
         <em>apagar meus dados</em> remove todas as chaves acima na hora.
       </p>
-
-      <h2>3. Localização</h2>
       <p>
-        O card de clima funciona sem a sua localização: por padrão ele mostra São Paulo. Se você quiser o
-        clima do seu lugar, precisa autorizar duas vezes — uma aqui no site e outra no pedido do próprio
-        navegador. Você pode recusar qualquer uma das duas.
-      </p>
-      <p>
-        Quando autorizado, as coordenadas são usadas para <strong>uma única consulta</strong> ao serviço de
-        previsão do tempo e descartadas em seguida. Não gravamos, não associamos a você e não compartilhamos
-        com mais ninguém. O botão <em>revogar</em> no card desfaz a permissão a qualquer momento.
+        Arquivos de áudio que você abre do seu computador tocam direto do seu disco, só nesta sessão. Eles não
+        são enviados para lugar nenhum e não ficam guardados. O site não usa a sua localização.
       </p>
 
-      <h2>4. Serviços de terceiros</h2>
+      <h2>3. Serviços de terceiros</h2>
       <p>
         Algumas partes do site conversam com serviços externos. Quando isso acontece, esses serviços recebem o
         seu endereço IP e informações básicas do navegador, como qualquer site que você visita. O teste de
-        serviços da página <Link href="/sistema">Sistema</Link> também fala com o YouTube e o Open-Meteo, mas
+        serviços da página <Link href="/sistema">Sistema</Link> também fala com o YouTube e o Spotify, mas
         só quando você aperta o botão.
       </p>
 
@@ -120,25 +119,41 @@ export default function PrivacidadePage() {
                 YouTube (modo sem cookies)
               </a>
             </td>
-            <td>Ao tocar uma faixa da sua playlist.</td>
+            <td>Ao colocar um vídeo ou playlist do YouTube num canal.</td>
             <td>
               IP e dados do player. Usamos o domínio <code>youtube-nocookie.com</code>, que não grava cookies
               de rastreamento antes da reprodução.
             </td>
           </tr>
           <tr>
-            <td>
-              <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener noreferrer">
-                Open-Meteo
-              </a>
-            </td>
-            <td>Ao carregar o card de clima.</td>
-            <td>IP e as coordenadas consultadas (São Paulo, ou a sua, se autorizada).</td>
+            <td>YouTube (miniaturas e títulos)</td>
+            <td>Ao exibir a capa e buscar o título de um item salvo.</td>
+            <td>IP e o identificador público do vídeo.</td>
           </tr>
           <tr>
-            <td>YouTube (miniaturas e títulos)</td>
-            <td>Ao exibir a capa e buscar o título de uma faixa salva.</td>
-            <td>IP e o identificador público do vídeo.</td>
+            <td>
+              <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">
+                Spotify (player embutido)
+              </a>
+            </td>
+            <td>
+              Só quando você coloca um item do Spotify num canal. Antes disso, o player do Spotify nem é
+              carregado.
+            </td>
+            <td>
+              IP, dados do player e, se você estiver logado no Spotify neste navegador, a sua sessão de lá. A
+              partir daí valem as regras de privacidade do Spotify.
+            </td>
+          </tr>
+          <tr>
+            <td>Spotify (títulos)</td>
+            <td>Ao buscar o título de um link do Spotify que você adicionou.</td>
+            <td>IP e o link público do item.</td>
+          </tr>
+          <tr>
+            <td>Links diretos de áudio</td>
+            <td>Ao tocar um link de áudio que você colou.</td>
+            <td>IP e dados básicos do navegador, entregues ao site que hospeda o arquivo.</td>
           </tr>
         </tbody>
       </table>
@@ -149,7 +164,7 @@ export default function PrivacidadePage() {
         chamada de rede para tocá-los.
       </p>
 
-      <h2>5. Formulário de contato</h2>
+      <h2>4. Formulário de contato</h2>
       <p>
         Quando você usa o <Link href="/contato">formulário de contato</Link>, enviamos o nome, o e-mail, o
         assunto e a mensagem que você escreveu para a nossa caixa de e-mail, para podermos responder. O envio
@@ -165,7 +180,7 @@ export default function PrivacidadePage() {
         <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> pelo seu próprio programa de e-mail.
       </p>
 
-      <h2>6. Hospedagem</h2>
+      <h2>5. Hospedagem</h2>
       <p>
         O site é hospedado na{" "}
         <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
@@ -176,15 +191,15 @@ export default function PrivacidadePage() {
         esses registros para medir audiência nem para identificar ninguém.
       </p>
 
-      <h2>7. O que nós não fazemos</h2>
+      <h2>6. O que nós não fazemos</h2>
       <ul>
         <li>Não usamos Google Analytics nem qualquer outra ferramenta de medição de audiência.</li>
         <li>Não usamos pixels de rastreamento, fingerprinting ou cookies de publicidade.</li>
         <li>Não criamos perfis, não fazemos publicidade comportamental e não vendemos dados.</li>
-        <li>Não temos acesso ao conteúdo das suas notas nem à sua playlist.</li>
+        <li>Não temos acesso à sua biblioteca, aos seus arquivos de áudio nem ao que você ouve.</li>
       </ul>
 
-      <h2>8. Seus direitos</h2>
+      <h2>7. Seus direitos</h2>
       <p>
         Pela LGPD (Lei 13.709/2018) e pelo GDPR, você tem direito de acesso, correção, exclusão, portabilidade
         e revogação do consentimento. Como os dados ficam no seu dispositivo, você exerce a maior parte desses
@@ -206,12 +221,12 @@ export default function PrivacidadePage() {
         </li>
       </ul>
 
-      <h2>9. Crianças</h2>
+      <h2>8. Crianças</h2>
       <p>
         O site não é direcionado a menores de 13 anos e não coleta dados de forma consciente desse público.
       </p>
 
-      <h2>10. Segurança</h2>
+      <h2>9. Segurança</h2>
       <p>
         O site é servido por HTTPS. Como não há armazenamento de dados pessoais em servidor nosso (o
         formulário de contato só repassa a mensagem por e-mail), a superfície de risco é pequena por
@@ -219,7 +234,7 @@ export default function PrivacidadePage() {
         que está salvo nele.
       </p>
 
-      <h2>11. Mudanças nesta política</h2>
+      <h2>10. Mudanças nesta política</h2>
       <p>
         Alterações aparecem aqui com nova data de atualização. Se a mudança afetar a forma como tratamos
         consentimento, o aviso reaparece para você decidir de novo.
