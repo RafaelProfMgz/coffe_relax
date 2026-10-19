@@ -32,7 +32,7 @@
   --r-lg: 20px;
   --r-xl: 26px;
 
-  --font-mono: var(--font-fira), ui-monospace, SFMono-Regular, monospace;
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, monospace;
   --font-display: var(--font-cormorant), Georgia, serif;
   --font-ui: var(--font-inter), system-ui, -apple-system, sans-serif;
 

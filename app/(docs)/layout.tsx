@@ -26,6 +26,14 @@ export const viewport: Viewport = {
 export default function DocsRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={fontVariables} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
         {/* Tema segue o sistema (sem gravar nada no navegador); a busca usa /api/search */}
         <RootProvider theme={{ enabled: false }} i18n={{ locale: "pt-BR", translations: docsTranslations }}>
