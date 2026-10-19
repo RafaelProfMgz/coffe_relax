@@ -11,10 +11,16 @@ function cleanEmail(value: string | undefined) {
   return value?.trim().replace(/\.+$/, "") ?? "";
 }
 
+function normalizeUrl(value: string | undefined) {
+  const cleaned = (value || "https://coffe.lotmhub.com.br").trim().replace(/\/$/, "");
+  if (!/^https?:\/\//.test(cleaned)) return "https://" + cleaned;
+  return cleaned;
+}
+
 export const SITE = {
   name: "coffe to relax",
   shortName: "coffe relax",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://coffe.lotmhub.com.br").replace(/\/$/, ""),
+  url: normalizeUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: "pt_BR",
   tagline: "Uma cafeteria digital para focar com calma",
   description:
