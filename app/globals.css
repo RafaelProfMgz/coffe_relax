@@ -463,6 +463,14 @@ input[type="range"]:focus-visible { box-shadow: var(--ring); }
 
 .deck-add { display: flex; justify-content: center; margin-top: 14px; }
 
+.deck-playlist { display: flex; flex-direction: column; gap: 8px; min-width: 0; border-top: 1px solid var(--line-soft); padding-top: 12px; }
+.deck-playlist-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.deck-playlist-head h3 { margin: 0; font-size: .84rem; color: var(--ink); }
+.deck-playlist-search { font-size: .76rem; color: var(--ink-soft); }
+.deck-playlist-status { margin: 0; font-size: .72rem; color: var(--ink-faint); }
+.deck-playlist-videos { max-height: 300px; overscroll-behavior: contain; }
+.deck-playlist-videos .track-main { width: 100%; }
+
 /* Spotify: o player oficial já é a interface — sem moldura 16:9 */
 .stage-spotify .stage-frame { aspect-ratio: auto; background: none; border: none; border-radius: 12px; }
 .spotify-host iframe { display: block; width: 100%; border: 0; border-radius: 12px; }

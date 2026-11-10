@@ -30,6 +30,7 @@ A paleta foi escolhida para não cansar os olhos: pergaminho envelhecido, marron
 
 *   🎵 **Players em canais:** Até **4 players tocando ao mesmo tempo**, cada um com volume próprio e um rótulo (Música, Audiobook, Podcast) — um audiobook num canal e uma música em outro.
     *   **Fontes:** vídeo do YouTube; playlist do YouTube (link com `list=`), com avançar/voltar dentro dela; Spotify (faixa, álbum, playlist, artista, episódio, podcast/show, audiobook); link direto de áudio (`mp3`, `m4a`, `ogg`, `wav`, `opus`, `flac`, `aac`); arquivo de áudio do computador (só nesta sessão, nunca enviado para lugar nenhum).
+    *   **Playlists grandes:** listagem com SWR Infinite, carregamento ao rolar ou pelo botão e busca por título em todas as páginas. A rota `/api/youtube/playlist` consulta os dados públicos e os tokens de continuação do YouTube, com cache de cinco minutos, sem exigir chave de API. O parser depende do formato público do YouTube; bloqueios ou mudanças nesse formato aparecem como erro com opção de tentar novamente. A seleção usa o ID do vídeo para permitir reprodução além dos 200 itens do iframe.
     *   **Retomar de onde parou:** itens com 10 minutos ou mais guardam a posição no navegador.
     *   **Por canal:** velocidade de 0,75× a 2× (YouTube e áudio direto), repetição (desligada / repetir o item / seguir para o próximo da biblioteca) e mostrar/esconder o vídeo.
     *   **Biblioteca no localStorage** (com consentimento), com títulos buscados automaticamente pelo oEmbed do YouTube e do Spotify.

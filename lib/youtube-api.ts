@@ -2,8 +2,8 @@
 
 /** Tipagem mínima do que usamos da IFrame Player API. */
 export interface YTPlayer {
-  loadVideoById(videoId: string): void;
-  cueVideoById(videoId: string): void;
+  loadVideoById(video: string | { videoId: string; startSeconds?: number }): void;
+  cueVideoById(video: string | { videoId: string; startSeconds?: number }): void;
   playVideo(): void;
   pauseVideo(): void;
   stopVideo(): void;
@@ -16,6 +16,7 @@ export interface YTPlayer {
   cuePlaylist(opts: { list: string; listType: "playlist"; index?: number; startSeconds?: number }): void;
   nextVideo(): void;
   previousVideo(): void;
+  playVideoAt(index: number): void;
   setLoop(loop: boolean): void;
   getPlaylist(): string[] | null;
   getPlaylistIndex(): number;

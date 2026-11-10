@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import type { MediaItem, Progress } from "@/hooks/useMediaLibrary";
 import { loadYouTubeApi, type YTPlayer } from "@/lib/youtube-api";
 import { loadSpotifyApi, type SpotifyController } from "@/lib/spotify-api";
+import type { PlaylistVideo } from "@/lib/youtube-playlist";
 
 /** O que o canal consegue pedir a qualquer motor. */
 export interface EngineHandle {
@@ -14,6 +15,7 @@ export interface EngineHandle {
   /** só playlists do YouTube navegam por dentro; os outros seguem a biblioteca */
   next?(): void;
   prev?(): void;
+  playAt?(index: number, videoId?: string): void;
 }
 
 export interface EngineState {
@@ -34,6 +36,8 @@ export interface EngineProps {
   rate: number;
   /** ponto salvo de onde retomar (só chega para itens longos) */
   resume?: Progress;
+  playlistVideos?: PlaylistVideo[];
+  playlistTotal?: number;
   onState: (patch: Partial<EngineState>) => void;
   onEnded: () => void;
 }
@@ -41,39 +45,94 @@ export interface EngineProps {
 /* ─────────────────────────────────────────── YouTube (vídeo e playlist) */
 
 export const YouTubeEngine = forwardRef<EngineHandle, EngineProps>(function YouTubeEngine(
-  { item, volume, rate, resume, onState, onEnded },
+  { item, volume, rate, resume, onState, onEnded, playlistVideos, playlistTotal },
   ref
 ) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YTPlayer | null>(null);
   const readyRef = useRef(false);
   const isList = item.kind === "youtube-playlist";
+  const selectedIndex = useRef<number | null>(null);
+  const pendingIndex = useRef<number | null>(null);
+  const pendingResume = useRef(isList && resume?.index !== undefined ? resume : undefined);
+  const requestedPlay = useRef(false);
   // callbacks mudam a cada render; o player vive fora do ciclo do React
-  const cb = useRef({ onState, onEnded, volume, rate });
-  cb.current = { onState, onEnded, volume, rate };
+  const cb = useRef({ onState, onEnded, volume, rate, playlistVideos, playlistTotal });
+  cb.current = { onState, onEnded, volume, rate, playlistVideos, playlistTotal };
+
+  const restoreResume = () => {
+    const saved = pendingResume.current;
+    const video = saved && cb.current.playlistVideos?.find((video) => video.index === saved.index);
+    if (!saved || !video || !readyRef.current) return;
+    selectedIndex.current = video.index;
+    pendingResume.current = undefined;
+    cb.current.onState({ index: video.index, position: saved.t });
+    const target = { videoId: video.id, startSeconds: saved.t };
+    if (requestedPlay.current) playerRef.current?.loadVideoById(target);
+    else playerRef.current?.cueVideoById(target);
+  };
+
+  const playAt = (index: number, videoId?: string) => {
+    const id = videoId ?? cb.current.playlistVideos?.find((video) => video.index === index)?.id;
+    const player = playerRef.current;
+    if (!player || index < 0) return;
+    if (id) {
+      pendingResume.current = undefined;
+      selectedIndex.current = index;
+      pendingIndex.current = null;
+      cb.current.onState({ index, position: 0, error: undefined });
+      // O índice do iframe também é limitado. O ID permite tocar qualquer página.
+      player.loadVideoById(id);
+    } else if (index < (cb.current.playlistTotal ?? 0)) {
+      pendingIndex.current = index;
+    } else player.playVideoAt(index);
+  };
+
+  const skip = (step: number) => {
+    const player = playerRef.current;
+    if (!player) return;
+    const index = selectedIndex.current ?? player.getPlaylistIndex();
+    if (cb.current.playlistVideos?.length) {
+      const next = index + step;
+      if (next >= 0 && next < (cb.current.playlistTotal || cb.current.playlistVideos.length)) playAt(next);
+    } else if (step > 0) player.nextVideo();
+    else player.previousVideo();
+  };
 
   useImperativeHandle(ref, () => ({
-    play: () => playerRef.current?.playVideo(),
-    pause: () => playerRef.current?.pauseVideo(),
+    play: () => {
+      requestedPlay.current = true;
+      if (!pendingResume.current) playerRef.current?.playVideo();
+    },
+    pause: () => {
+      requestedPlay.current = false;
+      playerRef.current?.pauseVideo();
+    },
     seek: (s) => playerRef.current?.seekTo(s, true),
     restart: () => {
       const p = playerRef.current;
       if (!p) return;
-      if (isList) p.loadPlaylist({ list: item.ref, listType: "playlist", index: 0 });
+      pendingResume.current = undefined;
+      pendingIndex.current = null;
+      if (isList && cb.current.playlistVideos?.length) playAt(0);
+      else if (isList) p.loadPlaylist({ list: item.ref, listType: "playlist", index: 0 });
       else {
         p.seekTo(0, true);
         p.playVideo();
       }
     },
     ...(isList && {
-      next: () => playerRef.current?.nextVideo(),
-      prev: () => playerRef.current?.previousVideo(),
+      next: () => skip(1),
+      prev: () => skip(-1),
+      playAt,
     }),
   }));
 
   useEffect(() => {
     let disposed = false;
     let poll: number | null = null;
+    let nativeListLoaded = false;
+    let playingNow = false;
     const mount = document.createElement("div");
     hostRef.current?.appendChild(mount);
 
@@ -82,8 +141,10 @@ export const YouTubeEngine = forwardRef<EngineHandle, EngineProps>(function YouT
       if (!p || !readyRef.current) return;
       const patch: Partial<EngineState> = { position: p.getCurrentTime(), duration: p.getDuration() };
       if (isList) {
-        patch.index = p.getPlaylistIndex();
-        patch.count = p.getPlaylist()?.length ?? undefined;
+        patch.index = selectedIndex.current ?? p.getPlaylistIndex();
+        const playlist = p.getPlaylist() ?? [];
+        nativeListLoaded = playlist.length > 0;
+        patch.count = cb.current.playlistTotal || playlist.length;
         patch.subtitle = p.getVideoData?.().title || undefined;
       }
       cb.current.onState(patch);
@@ -116,28 +177,36 @@ export const YouTubeEngine = forwardRef<EngineHandle, EngineProps>(function YouT
               readyRef.current = true;
               p.setVolume(cb.current.volume);
               p.setPlaybackRate(cb.current.rate);
-              if (isList && (resume || !item.startVideoId)) {
+              if (isList && !pendingResume.current && (resume || !item.startVideoId)) {
                 p.cuePlaylist({ list: item.ref, listType: "playlist", index: resume?.index ?? 0, startSeconds });
               }
               cb.current.onState({ ready: true });
+              restoreResume();
               sync();
+              // A lista pode chegar depois de onReady, mesmo com o vídeo pausado.
+              poll = window.setInterval(() => {
+                if (playingNow || (isList && !nativeListLoaded && selectedIndex.current === null && !pendingResume.current)) sync();
+              }, 500);
             },
             onStateChange: (e: { data: number }) => {
               if (disposed) return;
               const playing = e.data === YT.PlayerState.PLAYING;
-              cb.current.onState({ playing });
+              playingNow = playing;
+              cb.current.onState({ playing, ...(playing ? { error: undefined } : {}) });
               if (playing) {
                 // a velocidade volta a 1× quando o vídeo troca
                 playerRef.current?.setPlaybackRate(cb.current.rate);
-                if (!poll) poll = window.setInterval(sync, 500);
-              } else if (poll) {
-                window.clearInterval(poll);
-                poll = null;
               }
               sync();
               if (e.data === YT.PlayerState.ENDED) {
                 const p = playerRef.current;
-                const last = !isList || (p && p.getPlaylistIndex() >= (p.getPlaylist()?.length ?? 1) - 1);
+                const index = selectedIndex.current ?? p?.getPlaylistIndex() ?? 0;
+                const total = cb.current.playlistTotal || p?.getPlaylist()?.length || 1;
+                if (isList && index + 1 < total && (selectedIndex.current !== null || index >= (p?.getPlaylist()?.length ?? 1) - 1)) {
+                  playAt(index + 1);
+                  return;
+                }
+                const last = !isList || index >= total - 1;
                 if (last) cb.current.onEnded();
               }
             },
@@ -170,6 +239,14 @@ export const YouTubeEngine = forwardRef<EngineHandle, EngineProps>(function YouT
   useEffect(() => {
     if (readyRef.current) playerRef.current?.setPlaybackRate(rate);
   }, [rate]);
+
+  useEffect(() => {
+    restoreResume();
+    const index = pendingIndex.current;
+    if (index !== null && playlistVideos?.some((video) => video.index === index)) playAt(index);
+    // playAt lê os dados atuais pelo ref e não deve reiniciar vídeos a cada render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playlistVideos]);
 
   return <div ref={hostRef} className="stage-player" />;
 });

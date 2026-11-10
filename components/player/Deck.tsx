@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SoundButton from "@/components/ui/SoundButton";
+import { usePlaylistVideos } from "@/hooks/usePlaylistVideos";
+import PlaylistVideos from "@/components/player/PlaylistVideos";
 import { useSound } from "@/hooks/useSound";
 import type { Deck as DeckT, MediaItem, Progress, RepeatMode } from "@/hooks/useMediaLibrary";
 import { KIND_ICON, KIND_LABEL, fmtTime, spotifyTypeLabel } from "@/lib/media-sources";
@@ -62,16 +64,19 @@ export default function Deck({
   const isSpotify = item?.kind === "spotify";
   const isYouTube = item?.kind === "youtube" || item?.kind === "youtube-playlist";
   const isList = item?.kind === "youtube-playlist";
-
+  const [playlistQuery, setPlaylistQuery] = useState("");
   const itemId = item?.id ?? null;
+  const savedResume = useMemo(() => itemId ? getProgress(itemId) : undefined, [itemId, getProgress]);
+  const playlist = usePlaylistVideos(isList ? item.ref : null, playlistQuery, Math.max(state.index ?? 0, resume?.index ?? 0));
   const stateRef = useRef<EngineState>(EMPTY);
 
   // novo item: zera o estado e lê o ponto salvo uma única vez (renomear não conta)
   useEffect(() => {
     stateRef.current = EMPTY;
     setState(EMPTY);
-    setResume(itemId ? getProgress(itemId) : undefined);
-  }, [itemId, getProgress]);
+    setPlaylistQuery("");
+    setResume(savedResume);
+  }, [itemId, savedResume]);
 
   // pedidos de "tocar" chegam antes ou depois de o motor ficar pronto
   useEffect(() => {
@@ -143,10 +148,12 @@ export default function Deck({
     item,
     volume: deck.volume,
     rate: deck.rate,
-    resume,
+    resume: savedResume,
     onState,
     onEnded,
     ref: engineRef,
+    playlistVideos: playlist.videos,
+    playlistTotal: playlist.total,
   };
 
   const status = state.playing ? "tocando" : state.ready ? "pausado" : item ? "carregando…" : "livre";
@@ -218,7 +225,7 @@ export default function Deck({
             <span className="now-label">
               {KIND_LABEL[item.kind]}
               {isSpotify && ` · ${spotifyTypeLabel(item.spotifyType)}`}
-              {isList && state.count ? ` · ${(state.index ?? 0) + 1} de ${state.count}` : ""}
+              {isList && state.count ? ` · ${(state.index ?? 0) + 1} de ${playlist.total || state.count}` : ""}
             </span>
             <strong className="now-title" title={item.title}>
               {item.title}
@@ -341,6 +348,28 @@ export default function Deck({
             )}
           </div>
         </div>
+      )}
+
+      {isList && item && (
+        <PlaylistVideos
+          key={item.id}
+          videos={playlist.videos}
+          total={playlist.total}
+          hasMore={playlist.hasMore}
+          loading={playlist.loading}
+          query={playlistQuery}
+          onQueryChange={setPlaylistQuery}
+          onLoadMore={playlist.loadMore}
+          onRetry={playlist.retry}
+          currentIndex={state.index}
+          ready={state.ready}
+          error={playlist.error?.message}
+          onPlay={(index, videoId) => {
+            sound.click();
+            setResume(undefined);
+            engineRef.current?.playAt?.(index, videoId);
+          }}
+        />
       )}
 
       <label
