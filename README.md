@@ -114,6 +114,8 @@ npm run build
 npm start
 ```
 
+O comando `npm run build` usa Webpack explicitamente, inclusive na Vercel, para evitar a falha do Turbopack no processamento das fontes de `next/font/google` nesta versão do Next.js.
+
 ---
 
 <p align="center">
